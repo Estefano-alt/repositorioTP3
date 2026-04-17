@@ -6,8 +6,8 @@
 #define MAX 30
 //FUNCIONES
 void mostrarPersonas(char *arre[], int longitud);
-int buscarNombre1(char *arre[], int longitud, char clave[]);
-void buscarNombre2(char *arre[], int buscado);
+int buscarNombrePorPalabraClave(char *arre[], int longitud, char clave[]);
+void buscarNombrePorID(char *arre[], int buscado);
 int main(){
     char *arre_nombres[CANT_NOM];
     char nombre[MAX];
@@ -22,25 +22,37 @@ int main(){
         strcpy(arre_nombres[i],nombre);
     }
     mostrarPersonas(arre_nombres,CANT_NOM);
-    char clave[MAX];
-    printf("\nIngrese palabra clave (busqueda parcial): ");
-    scanf("%s",clave);
-    retorno=buscarNombre1(arre_nombres,CANT_NOM,clave);
-    if(retorno==-1){
-        printf("\nNo se encontro a la persona");
-    }
-    else{
-        printf("\nPersona encontrado: %s",arre_nombres[retorno]);
-    }
-        printf("\nIngrese un numero del 0-4 para encontrar a la persona ");
+    int opcion;
+    printf("\nDesea encontrar una persona por ID o palabra clave (1_ID,2_Palabra clave) ");
+    do{
+        scanf("%d",&opcion);
+        if(opcion!=1 && opcion!=2){
+            printf("\nIngrese una opcion valida ");
+        }
+    }while(opcion!=1 && opcion!=2);
+    
+    if(opcion==1){
+        printf("\nIngrese el ID de la persona a buscar(0-4): ");
         scanf("%d",&numero);
-        if(numero<0 || numero>4){
-            printf("\nPersona no encontrada");
+        if(numero>4 || numero<0){
+            printf("\nNo se encontro la persona con ese ID");
         }
         else{
-            buscarNombre2(arre_nombres,numero);
+            buscarNombrePorID(arre_nombres,numero);
         }
-    
+    }
+    else{
+        char clave[MAX];
+        printf("\nIngrese la palabra clave para encontrar su persona: ");
+        scanf("%s",clave);
+        retorno=buscarNombrePorPalabraClave(arre_nombres,CANT_NOM,clave);
+        if(retorno==-1){
+            printf("\nNo se encontro ninguna persona");
+        }
+        else{
+            printf("\nPersona buscada: %s",arre_nombres[retorno]);
+        }
+    }
     return 0;
 }
 
@@ -50,7 +62,7 @@ void mostrarPersonas(char *arre[], int longitud){
     }
 }
 
-int buscarNombre1(char *arre[], int longitud, char clave[]){
+int buscarNombrePorPalabraClave(char *arre[], int longitud, char clave[]){
     for(int i=0; i<longitud; i++){
         if(strstr(arre[i], clave)!=NULL){
             return i;
@@ -59,6 +71,6 @@ int buscarNombre1(char *arre[], int longitud, char clave[]){
     return -1;
 }
 
-void buscarNombre2(char *arre[], int buscado){
+void buscarNombrePorID(char *arre[], int buscado){
     printf("\nPersona buscada: %s",arre[buscado]);
 }
