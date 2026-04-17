@@ -6,10 +6,12 @@
 #define MAX 30
 //FUNCIONES
 void mostrarPersonas(char *arre[], int longitud);
+int buscarNombre(char *arre[], int longitud, char clave[]);
 int main(){
     char *arre_nombres[CANT_NOM];
     char nombre[MAX];
     int longitud;
+    int retorno;
     for(int i=0; i<CANT_NOM; i++){
         printf("\nIngrese el nombre de la %d persona ",i+1);
         scanf("%s",nombre);
@@ -18,6 +20,16 @@ int main(){
         strcpy(arre_nombres[i],nombre);
     }
     mostrarPersonas(arre_nombres,CANT_NOM);
+    char clave[MAX];
+    printf("\nIngrese palabra clave (busqueda parcial): ");
+    scanf("%s",clave);
+    retorno=buscarNombre(arre_nombres,CANT_NOM,clave);
+    if(retorno==-1){
+        printf("\nNo se encontro a la persona");
+    }
+    else{
+        printf("\nPersona encontrado: %s",arre_nombres[retorno]);
+    }
     return 0;
 }
 
@@ -25,4 +37,13 @@ void mostrarPersonas(char *arre[], int longitud){
     for(int i=0; i<longitud; i++){
         printf("\n%s",arre[i]);
     }
+}
+
+int buscarNombre(char *arre[], int longitud, char clave[]){
+    for(int i=0; i<longitud; i++){
+        if(strstr(arre[i], clave)!=NULL){
+            return i;
+        }
+    }
+    return -1;
 }
