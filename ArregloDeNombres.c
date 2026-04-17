@@ -7,9 +7,11 @@
 //FUNCIONES
 void mostrarPersonas(char *arre[], int longitud);
 int buscarNombre(char *arre[], int longitud, char clave[]);
+void buscarNombre(char *arre[], int buscado);
 int main(){
     char *arre_nombres[CANT_NOM];
     char nombre[MAX];
+    int numero;
     int longitud;
     int retorno;
     for(int i=0; i<CANT_NOM; i++){
@@ -30,6 +32,15 @@ int main(){
     else{
         printf("\nPersona encontrado: %s",arre_nombres[retorno]);
     }
+        printf("\nIngrese un numero del 0-4 para encontrar a la persona ");
+        scanf("%d",&numero);
+        if(numero<0 || numero>4){
+            printf("\nPersona no encontrada");
+        }
+        else{
+            buscarNombre(arre_nombres,numero);
+        }
+    
     return 0;
 }
 
@@ -46,4 +57,8 @@ int buscarNombre(char *arre[], int longitud, char clave[]){
         }
     }
     return -1;
+}
+
+void buscarNombre(char *arre[], int buscado){
+    printf("\nPersona buscada: %s",arre[buscado]);
 }
