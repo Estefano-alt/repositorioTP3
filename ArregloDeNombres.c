@@ -6,8 +6,8 @@
 #define MAX 30
 //FUNCIONES
 void mostrarPersonas(char *arre[], int longitud);
-int buscarNombre(char *arre[], int longitud, char clave[]);
-void buscarNombre(char *arre[], int buscado);
+int buscarNombre1(char *arre[], int longitud, char clave[]);
+void buscarNombre2(char *arre[], int buscado);
 int main(){
     char *arre_nombres[CANT_NOM];
     char nombre[MAX];
@@ -25,7 +25,7 @@ int main(){
     char clave[MAX];
     printf("\nIngrese palabra clave (busqueda parcial): ");
     scanf("%s",clave);
-    retorno=buscarNombre(arre_nombres,CANT_NOM,clave);
+    retorno=buscarNombre1(arre_nombres,CANT_NOM,clave);
     if(retorno==-1){
         printf("\nNo se encontro a la persona");
     }
@@ -38,7 +38,7 @@ int main(){
             printf("\nPersona no encontrada");
         }
         else{
-            buscarNombre(arre_nombres,numero);
+            buscarNombre2(arre_nombres,numero);
         }
     
     return 0;
@@ -50,7 +50,7 @@ void mostrarPersonas(char *arre[], int longitud){
     }
 }
 
-int buscarNombre(char *arre[], int longitud, char clave[]){
+int buscarNombre1(char *arre[], int longitud, char clave[]){
     for(int i=0; i<longitud; i++){
         if(strstr(arre[i], clave)!=NULL){
             return i;
@@ -59,6 +59,6 @@ int buscarNombre(char *arre[], int longitud, char clave[]){
     return -1;
 }
 
-void buscarNombre(char *arre[], int buscado){
+void buscarNombre2(char *arre[], int buscado){
     printf("\nPersona buscada: %s",arre[buscado]);
 }
